@@ -84,6 +84,7 @@ def create_employee():
 
 
 @app.route("/api/updateEmployee/<int:employee_no>", methods=["PUT"])
+@setup_logger
 def update_employee(employee_no):
     log_message = {'operation': 'update employee', 'status': 'processing'}
     request.logger.info(str(log_message))
@@ -98,12 +99,13 @@ def update_employee(employee_no):
         return str(err), err.status
 
     log_message['status'] = "successful"
-    request.logger.error(str(log_message))
+    request.logger.info(str(log_message))
 
     return str(company[employee_no])
 
 
 @app.route("/api/getEmployee/<int:employee_no>", methods=["GET"])
+@setup_logger
 def get_employee(employee_no):
     log_message = {'operation': 'update employee', 'status': 'processing'}
     request.logger.info(str(log_message))
@@ -117,11 +119,12 @@ def get_employee(employee_no):
         return str(err), err.status
 
     log_message['status'] = "successful"
-    request.logger.error(str(log_message))
+    request.logger.info(str(log_message))
     return str(company[employee_no])
 
 
 @app.route("/api/getEmployee/", methods=["GET"])
+@setup_logger
 def get_company():
     log_message = {'operation': 'update employee', 'status': 'processing'}
     request.logger.info(str(log_message))
@@ -130,11 +133,12 @@ def get_company():
         all_records[employee_id] = employee.name
 
     log_message['status'] = "successful"
-    request.logger.error(str(log_message))
+    request.logger.info(str(log_message))
     return all_records
 
 
 @app.route("/api/deleteEmployee/<int:employee_no>", methods=["DELETE"])
+@setup_logger
 def delete_employee(employee_no):
     log_message = {'operation': 'update employee', 'status': 'processing'}
     request.logger.info(str(log_message))
@@ -148,5 +152,5 @@ def delete_employee(employee_no):
 
     del company[employee_no]
     log_message['status'] = "successful"
-    request.logger.error(str(log_message))
+    request.logger.info(str(log_message))
     return make_response(""), 200
